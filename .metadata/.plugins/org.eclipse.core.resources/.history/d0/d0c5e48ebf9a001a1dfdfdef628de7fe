@@ -1,0 +1,21 @@
+package familyTree;
+
+public class FamilyMember {
+	private String familyName;
+	private String givenName;
+	private String middleName;
+	private int gender;
+	private int birthDate;
+	private int deathDate;
+	public FamilyMember(String familyName, String givenName, String middleName, int gender, int birthDate, int deathDate) {
+		this.familyName = familyName;
+		this.givenName = givenName;
+		this.middleName = middleName;
+		this.gender = gender;
+		this.birthDate = birthDate;
+		this.deathDate = deathDate;
+	}
+	public String getFamilyName() {
+		return familyName;
+	}
+}

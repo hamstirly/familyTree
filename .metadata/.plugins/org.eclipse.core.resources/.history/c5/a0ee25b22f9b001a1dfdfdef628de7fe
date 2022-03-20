@@ -1,0 +1,87 @@
+package familyTree;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
+@SuppressWarnings("serial")
+public class Coordinator extends JPanel implements ActionListener{
+	private JFrame frame;
+	private static ArrayList<FamilyMember> familyList = new ArrayList<FamilyMember>();
+	private static final String MASTER_PATH = "C:\\Users\\Hamstirly\\Dropbox\\workspaceFamilyTree\\familyTree\\src\\familyTreeResources\\";
+	public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static final int SCREEN_WIDTH = (int) (screenSize.getWidth());
+	public static final int SCREEN_HEIGHT = (int) (screenSize.getHeight());
+	public static void main(String[] args) {
+		File folder = new File(MASTER_PATH + "testFamily");
+		File[] data = folder.listFiles();
+		for(int i = 0; i < data.length; i++) {
+			if(data[i].isDirectory()){
+				continue;
+			}
+			else {
+				//Files.readAllLines(Paths.get(MASTER_PATH + "testFamily" + data[i].getName()));
+				Scanner fileReader = null;
+				try {
+					fileReader = new Scanner(new File(MASTER_PATH + "testFamily\\" + data[i].getName()));
+				} catch (FileNotFoundException e) {}// data[i].getName());
+				//System.out.println(fileReader.nextLine());
+				familyList.add(new FamilyMember(fileReader.nextLine(), fileReader.nextLine(), fileReader.nextLine(), fileReader.nextLine(), fileReader.nextInt(), fileReader.nextInt()));
+				fileReader.close();
+			}
+		} 
+		for(int i = 0; i < familyList.size(); i++) {
+			System.out.println(familyList.get(i).getGender());
+		}
+		JFrame frame = new JFrame("Family Tree");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Coordinator panel = new Coordinator();
+		panel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		panel.setFrame(frame);
+		panel.setLayout(new BorderLayout());
+		frame.getContentPane().add(panel);
+		JButton closeButton = new JButton("Close");
+		closeButton.addActionListener(panel);
+		panel.add(closeButton, "North");
+		JButton newFamilyMember = new JButton("Add New Family Member");
+		newFamilyMember.addActionListener(panel);
+		panel.add(newFamilyMember, "South");
+		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.pack();
+		frame.setVisible(true);
+		panel.repaint();
+		do {
+			
+		} while (true);
+	}
+	public JFrame getFrame() {
+		return frame;
+	}
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("Close")) {
+			System.exit(0);
+		}
+		else if(e.getActionCommand().equals("Add New Family Member")) {
+			System.out.println("meme");
+			JFrame addFrame = new JFrame("Add New Family Member");
+			addFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			Coordinator addPanel = new Coordinator();
+			addPanel.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+			addPanel.setFrame(frame);
+			addPanel.setLayout(new BorderLayout());
+			JButton closeButton = new JButton("Close");
+			closeButton.addActionListener(addPanel);
+			addPanel.add(closeButton, "North");
+			addFrame.getContentPane().add(addPanel);
+			addFrame.pack();
+			addFrame.setVisible(true);
+		}
+		
+	}
+}

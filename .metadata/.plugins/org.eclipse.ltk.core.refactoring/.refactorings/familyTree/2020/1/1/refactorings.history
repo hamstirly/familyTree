@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;familyTree.Coordinator.frame&apos; in &apos;familyTree.Coordinator&apos;&#x0D;&#x0A;- Original project: &apos;familyTree&apos;&#x0D;&#x0A;- Original element: &apos;familyTree.Coordinator.frame&apos;&#x0D;&#x0A;- Getter method name: &apos;getFrame&apos;&#x0D;&#x0A;- Setter method name: &apos;setFrame&apos;&#x0D;&#x0A;- Field visibility: &apos;public&apos;&#x0D;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;frame&apos;" flags="589830" getter="getFrame" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;familyTree{Coordinator.java[Coordinator^frame" insertion="0" setter="setFrame" stamp="1578091973505" version="1.0" visibility="1"/>
+</session>
