@@ -22,7 +22,7 @@ public class Coordinator extends JPanel implements ActionListener{
 	private static boolean onGivenName;
 	private static int familyNumber;
 	private static ArrayList<FamilyMember> familyList = new ArrayList<FamilyMember>();
-	private static final String MASTER_PATH = "C:\\Users\\Sawye\\Dropbox\\workspaceFamilyTree\\familyTree\\src\\familyTreeResources\\";
+	private static final String MASTER_PATH = "C:\\Users\\sawye\\github-repos\\familyTree\\src\\familyTreeResources\\";
 	public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int SCREEN_WIDTH = (int) (screenSize.getWidth());
 	public static final int SCREEN_HEIGHT = (int) (screenSize.getHeight());
@@ -40,7 +40,10 @@ public class Coordinator extends JPanel implements ActionListener{
 			Scanner fileReader = null;
 			try {fileReader = new Scanner(new File(MASTER_PATH + family + "\\" + data[i].getName()));}
 			catch (FileNotFoundException e) {}
-			familyList.add(new FamilyMember(fileReader.nextLine(), fileReader.nextLine(), fileReader.nextLine(), fileReader.nextLine(), fileReader.nextLine(), fileReader.nextInt(), fileReader.nextInt()));
+			familyList.add(new FamilyMember(fileReader.nextLine(), fileReader.nextLine(), fileReader.nextLine(),
+					fileReader.nextLine(), Integer.valueOf(fileReader.nextLine()), fileReader.nextLine(), fileReader.nextLine(),
+					fileReader.nextInt(),
+					fileReader.nextInt()));
 			String[] parentNames = null, significantOtherNames = null, childNames = null;
 			if(fileReader.hasNext()) parentNames = fileReader.next().split(";");
 			if(fileReader.hasNext()) significantOtherNames = fileReader.next().split(";");
@@ -106,7 +109,7 @@ public class Coordinator extends JPanel implements ActionListener{
 		frame.pack();
 		frame.setVisible(true);
 		panel.repaint();
-		determineFromMultipleNames(new String[]{"Sawyer", "Miedema"});
+		//determineFromMultipleNames(new String[]{"Sawyer", "Miedema"});
 		do {} while (true);
 	}
 	public static void determineFromMultipleNames(String[] name) {
@@ -151,16 +154,24 @@ public class Coordinator extends JPanel implements ActionListener{
 			nameField.setText("");
 			familyNumber = 1;
 			switch(addStep) {
-				case 1: {addLabel.setText("Enter Nee Name" + optionalIndicator); break;}
-				case 2: {addLabel.setText("Enter Family Name"); addPanel.remove(nextButton); break;}
-				case 3: {addLabel.setText("Enter Numeral Suffix (e.g. 2 )" + optionalIndicator); break;}
-				case 4: {addLabel.setText("Enter Professional Suffix (e.g. PhD)" + optionalIndicator); break;}
-				case 5: {addLabel.setText("Enter Gender" + optionalIndicator); break;}
-				case 6: {addLabel.setText("Enter Birth Date: MMDDYYYY" + optionalIndicator); break;}
-				case 7: {addLabel.setText("Enter Death Date: MMDDYYYY" + optionalIndicator); break;}
-				case 8: {addLabel.setText("Enter Parent #1 Given Name" + optionalIndicator); System.out.println(addStep); break;}
-				case 9: {addLabel.setText("Enter Significant Other Given Name" + optionalIndicator); break;}
-				case 10: {addLabel.setText("Enter Child #1 Given Name" + optionalIndicator); break;}
+				case 1: {newFamilyMember.setMiddleName(null); addLabel.setText("Enter Nee Name" + optionalIndicator); break;}
+				case 2: {newFamilyMember.setNeeName(null); addLabel.setText("Enter Family Name"); addPanel.remove(nextButton); break;}
+				case 3: {newFamilyMember.setFamilyName(null); addLabel.setText("Enter Numeral Suffix (e.g. 2 )" + optionalIndicator); break;}
+				case 4: {newFamilyMember.setNumeralSuffix(-1); addLabel.setText("Enter Professional Suffix (e.g. PhD)" + optionalIndicator); break;}
+				case 5: {newFamilyMember.setProfessionalSuffix(null); addLabel.setText("Enter Gender" + optionalIndicator); break;}
+				case 6: {newFamilyMember.setGender(null); addLabel.setText("Enter Birth Date: MMDDYYYY" + optionalIndicator); break;}
+				case 7: {newFamilyMember.setBirthDate(-1); addLabel.setText("Enter Death Date: MMDDYYYY" + optionalIndicator); break;}
+				case 8: {newFamilyMember.setDeathDate(-1);
+					if(addLabel.getText().equals("Enter Death Date: MMDDYYYY" + optionalIndicator) || addLabel.getText().equals("Please Enter Death Date in this format: MMDDYYYY" + optionalIndicator)) {
+						//addStep--;
+						addLabel.setText("Enter Parent #1 Given Name" + optionalIndicator); break;
+					}
+				}
+				case 9: { if(newFamilyMember.getParentNameSets().size() == 0) { newFamilyMember.addParentNameSet(new String[2]); }
+					addLabel.setText("Enter Significant Other Given Name" + optionalIndicator); break;
+				}
+				case 10: { if(newFamilyMember.getSignificantOtherNameSets().size() == 0) { newFamilyMember.addSignificantOtherNameSet(new String[2]); }
+					addLabel.setText("Enter Child #1 Given Name" + optionalIndicator); break;}
 				case 11: {
 					try {
 						File newFamilyMemberFile = new File(MASTER_PATH + "\\testFamily\\" + newFamilyMember.getGivenName().toLowerCase() + newFamilyMember.getFamilyName() + ".fm");

@@ -21,11 +21,14 @@ public class FamilyMember {
 	private ArrayList<FamilyMember> significantOthers = new ArrayList<FamilyMember>();
 	private ArrayList<FamilyMember> children = new ArrayList<FamilyMember>();
 	public FamilyMember(String givenName) {this.givenName = givenName;}
-	public FamilyMember(String givenName, String middleName, String neeName, String familyName, String gender, int birthDate, int deathDate) {
+	public FamilyMember(String givenName, String middleName, String neeName, String familyName, int numeralSuffix, String professionalSuffix,
+			String gender, int birthDate, int deathDate) {
 		this.givenName = givenName;
 		this.middleName = middleName;
 		this.neeName = neeName;
 		this.familyName = familyName;
+		this.numeralSuffix = numeralSuffix;
+		this.professionalSuffix = professionalSuffix;
 		this.gender = gender;
 		this.birthDate = birthDate;
 		this.deathDate = deathDate;
